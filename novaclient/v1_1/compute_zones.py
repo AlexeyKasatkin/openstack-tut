@@ -39,8 +39,8 @@ class ComputeZoneManager(base.ManagerWithFind):
 
     def create(self, name):
         """ """
-        body = {'computezone': {'name': name}}
-        return self._create('/os-computezones', body, 'computezone')
+        body = {'compute_zone': {'name': name}}
+        return self._create('/os-computezones', body, 'compute_zone')
 
     def delete(self, name):
         """ """
@@ -48,12 +48,12 @@ class ComputeZoneManager(base.ManagerWithFind):
 
     def list(self):
         """ """
-        return self._list('/os-computezones', 'computezones')
+        return self._list('/os-computezones', 'compute_zones')
 
     def add_node(self, zone_id, node_id):
         """ """
         body = {'nodetozone': {'zone_id': zone_id, 'node_id': node_id} }
-        return self._add_node('/os-computezones', body, 'computezone')
+        return self._add_node('/os-computezones', body, 'compute_zone')
 
     def remove_node(self, zone_id, node_id):
         """ """
