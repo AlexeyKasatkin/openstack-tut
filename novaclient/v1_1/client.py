@@ -46,6 +46,7 @@ from novaclient.v1_1 import volume_types
 from novaclient.v1_1 import services
 from novaclient.v1_1 import fixed_ips
 from novaclient.v1_1 import floating_ips_bulk
+from novaclient.v1_1 import compute_zones
 
 
 class Client(object):
@@ -84,6 +85,7 @@ class Client(object):
         self.images = images.ImageManager(self)
         self.limits = limits.LimitsManager(self)
         self.servers = servers.ServerManager(self)
+        self.computezones = compute_zones.ComputeZoneManager(self)
 
         # extensions
         self.agents = agents.AgentsManager(self)
