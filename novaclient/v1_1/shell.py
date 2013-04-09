@@ -3044,3 +3044,44 @@ def do_availability_zone_list(cs, _args):
     _translate_availability_zone_keys(result)
     utils.print_list(result, ['Name', 'Status'],
                      sortby_index=None)
+
+
+@utils.arg('name', metavar='<name>', help='Compute zone name to add.')
+def do_compute_zone_add(cs, args):
+    """Create a new compute zone"""
+    name = args.name
+    cs.computezones.create(name)
+
+
+@utils.arg('name', metavar='<name>', help='Compute zone name to delete.')
+def do_compute_zone_delete(cs, args):
+    """Delete compute zone and remove (detach) all compute nodes
+        attached to the compute zone"""
+    name = args.name
+    cs.computezones.delete(name)
+
+
+def do_compute_zone_list(cs):
+    """List all compute zones"""
+    computezones = cs.computezones.list()
+    utils.print_list(computezones, ['Zone'])
+
+@utils.arg('zone', metavar='<zone>', help='Compute zone id to add node.')
+@utils.arg('node', metavar='<node>', help='Compute node id to add to zone.')
+def do_compute_zone_add_node(cs, args):
+    """Add compute node to the compute zone"""
+    cs.computezones.add_node(args.zone, args.node)
+
+
+@utils.arg('zone', metavar='<zone>', help='Compute zone id to remove node.')
+@utils.arg('node', metavar='<node>', help='Compute node id to remove from zone.')
+def do_compute_zone_remove_node(cs, args):
+    """Remove (detach) compute node attached to the compute zone"""
+    cs.computezones.remove_node(args.zone, args.node)
+
+
+@utils.arg('zone', metavar='<zone>', help='Compute zone id to add node.')
+def do_compute_zone_list_nodes(cs, args):
+    """List all nodes in given compute zone"""
+    computezones = cs.computezones.list_nodes(args.zone)
+    utils.print_list(computezones, ['Zone', 'Id', 'Name'])
