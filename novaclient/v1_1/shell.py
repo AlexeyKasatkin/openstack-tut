@@ -3061,10 +3061,11 @@ def do_compute_zone_delete(cs, args):
     cs.computezones.delete(name)
 
 
-def do_compute_zone_list(cs):
+def do_compute_zone_list(cs, args):
     """List all compute zones"""
-    computezones = cs.computezones.list()
-    utils.print_list(computezones, ['Zone'])
+    compute_zones = cs.computezones.list()
+    utils.print_list(compute_zones, ['Name'])
+
 
 @utils.arg('zone', metavar='<zone>', help='Compute zone id to add node.')
 @utils.arg('node', metavar='<node>', help='Compute node id to add to zone.')

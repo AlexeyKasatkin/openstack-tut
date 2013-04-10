@@ -34,7 +34,7 @@ class ComputeZone(base.Resource):
         self.manager.delete(self)
 
 
-class ComputeZoneManager(base.ManagerWithFind):
+class ComputeZoneManager(base.Manager):
     resource_class = ComputeZone
 
     def create(self, name):
@@ -44,6 +44,8 @@ class ComputeZoneManager(base.ManagerWithFind):
 
     def delete(self, name):
         """ """
+        #body = {'compute_zone': {'name': name}}
+        #self._delete('/os-computezones', body)
         self._delete('/os-computezones/%s' % name)
 
     def list(self):

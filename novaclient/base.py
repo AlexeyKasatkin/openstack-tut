@@ -356,3 +356,5 @@ class Resource(object):
 
     def set_loaded(self, val):
         self._loaded = val
+
+
