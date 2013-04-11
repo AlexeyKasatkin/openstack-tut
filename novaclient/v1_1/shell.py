@@ -3064,14 +3064,19 @@ def do_compute_zone_delete(cs, args):
 def do_compute_zone_list(cs, args):
     """List all compute zones"""
     compute_zones = cs.computezones.list()
-    utils.print_list(compute_zones, ['Name'])
+    utils.print_list(compute_zones, ['Id', 'Name'])
+    print compute_zones
 
 
 @utils.arg('zone', metavar='<zone>', help='Compute zone id to add node.')
 @utils.arg('node', metavar='<node>', help='Compute node id to add to zone.')
 def do_compute_zone_add_node(cs, args):
     """Add compute node to the compute zone"""
-    cs.computezones.add_node(args.zone, args.node)
+    res = cs.computezones.add_node(args.zone, args.node)
+    #utils.print_list(res.compute_node_to_zone, ['Id'])#, 'Zone', 'Name'])
+    # node_to_zone = res['compute_node_to_zone']
+    # if type(res) is dict:
+    #     utils.print_dict(res)
 
 
 @utils.arg('zone', metavar='<zone>', help='Compute zone id to remove node.')
@@ -3081,8 +3086,9 @@ def do_compute_zone_remove_node(cs, args):
     cs.computezones.remove_node(args.zone, args.node)
 
 
-@utils.arg('zone', metavar='<zone>', help='Compute zone id to add node.')
+@utils.arg('zone', metavar='<zone>', help='Compute zone id to list nodes.')
 def do_compute_zone_list_nodes(cs, args):
     """List all nodes in given compute zone"""
-    computezones = cs.computezones.list_nodes(args.zone)
-    utils.print_list(computezones, ['Zone', 'Id', 'Name'])
+    compute_zone = cs.computezones.list_nodes(args.zone)
+    utils.print_list(compute_zone, ['zone_name', 'node_id', 'node_name'])
+    print compute_zone

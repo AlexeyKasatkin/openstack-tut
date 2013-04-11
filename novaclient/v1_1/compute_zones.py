@@ -52,17 +52,31 @@ class ComputeZoneManager(base.Manager):
         """ """
         return self._list('/os-computezones', 'compute_zones')
 
-    def add_node(self, zone_id, node_id):
+    def add_node(self, zone, node):
         """ """
-        body = {'nodetozone': {'zone_id': zone_id, 'node_id': node_id} }
-        return self._add_node('/os-computezones', body, 'compute_zone')
+        body = {'add_node': {'zone': zone, 'node': node}}
+        return self._create("/os-computezones/%s/action" % zone,#base.getid(zone),
+                            body, "compute_node_to_zone", return_raw=True)
+        #return self._action('addNode', zone_id, {'node_id': node_id})
 
-    def remove_node(self, zone_id, node_id):
+    def remove_node(self, zone, node):
         """ """
-        body = {'nodetozone': {'zone_id': zone_id, 'node_id': node_id} }
-        return self._remove_node('/os-computezones', body)
+        body = {'remove_node': {'zone': zone, 'node': node}}
+        return self._create("/os-computezones/%s/action" % zone,#base.getid(zone),
+                            body, "compute_node_to_zone", return_raw=True)
+        #return self._action('removeNode', zone_id, {'node_id': node_id})
 
-    def list_nodes(self, zone_id):
+    def list_nodes(self, zone):
         """ """
-        body = {'computezone': {'zone_id': zone_id}}
-        return self._list_nodes('/os-computezones', body)
+        body = {'list_nodes': None}#{'zone': zone}}
+        return self._create("/os-computezones/%s/action" % zone,#base.getid(zone),
+                            body, "compute_nodes", return_raw=True)
+        #return self._action('listNodes', zone_id)
+
+    # def _action(self, action, zone, **kwargs):
+    #     """ """
+    #     body = {action: None}#, "zone": zone}
+    #     self.run_hooks('modify_body_for_action', body, **kwargs)
+    #     url = '/os-computezones/%s/action' % zone
+    #     #url = '/computezones/action'
+    #     return self.api.client.post(url, body=body)
