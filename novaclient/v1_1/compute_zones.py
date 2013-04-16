@@ -69,8 +69,8 @@ class ComputeZoneManager(base.Manager):
     def list_nodes(self, zone):
         """ """
         body = {'list_nodes': None}#{'zone': zone}}
-        return self._create("/os-computezones/%s/action" % zone,#base.getid(zone),
-                            body, "compute_nodes", return_raw=True)
+        return self._list("/os-computezones/%s/action" % zone,# base.getid(zone),
+                          "compute_nodes", body=body)#, return_raw=True)
         #return self._action('listNodes', zone_id)
 
     # def _action(self, action, zone, **kwargs):
